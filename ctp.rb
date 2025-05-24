@@ -1,8 +1,8 @@
 class Ctp < Formula
     desc "Command line table printer"
-    homepage "https://github.com/AlexZeitler/table-printer-cli"
+    homepage "https://console-table.netlify.app/docs/doc-cli-install-quick-start"
     url "https://registry.npmjs.org/table-printer-cli/-/table-printer-cli-1.0.6.tgz"
-    sha256 "b7de8f289b2e04a2b17f3b9feee158efc18957d8d44aa424e07ff73fd53a64a3"
+    sha256 "1c8283fcc0afe475390ec858ce9e0870939fa68a72bc9c11f1707ba7ffdf3c3d"
     license "MIT"
   
     depends_on "node"
