@@ -35,5 +35,5 @@ To remove the package:
 brew uninstall ctp
 
 # Remove the tap (optional)
-brew untap ayonious/homebrew-console-table
+brew untap console-table-printer/homebrew-console-table
 ```
