@@ -1,4 +1,4 @@
-# Tap for homebrew for table-printer-cli (ctp)
+# Homebrew tap for table-printer-cli (ctp)
 
 [![Homebrew](https://img.shields.io/badge/homebrew-tap-orange)](https://brew.sh)
 
