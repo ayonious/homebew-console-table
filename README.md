@@ -7,3 +7,8 @@ Homebrew tap for installing Console Table Cli
 ```
 brew tap console-table-printer/homebrew-console-table
 ```
+
+## How to untap
+```
+brew untap console-table-printer/homebrew-console-table
+```
