@@ -1,3 +1,5 @@
+require "language/node"
+
 class Ctp < Formula
     desc "Command line table printer"
     homepage "https://console-table.netlify.app/docs/doc-cli-install-quick-start"
@@ -8,7 +10,7 @@ class Ctp < Formula
     depends_on "node"
   
     def install
-      system "npm", "install", "-g", "table-printer-cli"
+      system "npm", "install", *Language::Node.std_npm_install_args(libexec)
       bin.install_symlink Dir["#{HOMEBREW_PREFIX}/lib/node_modules/table-printer-cli/bin/*"]
     end
   
