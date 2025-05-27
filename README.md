@@ -1,12 +1,8 @@
-# Console Table Printer (ctp)
-
-A Homebrew tap for installing the Console Table CLI tool - a beautiful command-line table printer.
-
-<div align="center">
+# Tap for homebrew for table-printer-cli (ctp)
 
 [![Homebrew](https://img.shields.io/badge/homebrew-tap-orange)](https://brew.sh)
 
-</div>
+> A Homebrew tap for installing the Console Table CLI tool - a beautiful command-line table printer.
 
 ## 🚀 Quick Install
 
