@@ -1,4 +1,4 @@
-# homebew-console-table
+# homebrew-console-table
 Homebrew tap for installing Console Table Cli
 
 
