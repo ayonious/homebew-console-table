@@ -7,11 +7,7 @@
 ## 🚀 Quick Install
 
 ```bash
-# Add the tap
-brew tap console-table-printer/homebrew-console-table
-
-# Install ctp
-brew install ctp
+brew install console-table-printer/homebrew-console-table/ctp
 ```
 
 ## 📋 Usage
@@ -33,7 +29,4 @@ To remove the package:
 ```bash
 # Uninstall the package
 brew uninstall ctp
-
-# Remove the tap (optional)
-brew untap console-table-printer/homebrew-console-table
 ```
