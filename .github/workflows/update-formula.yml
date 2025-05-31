@@ -75,7 +75,7 @@ jobs:
               base: 'main',
               body: `Automated update of the Homebrew formula to version ${version}
 
-              - Updated version to: ${version}
+              - Updated version to: ${version}`
             });
         env:
           version: ${{ steps.get-version.outputs.version }}
