@@ -53,16 +53,31 @@ jobs:
           sed -i "s|url.*|url \"$URL\"|" ctp.rb
           sed -i "s|sha256.*|sha256 \"$SHA\"|" ctp.rb
 
+      - name: Create Branch and Commit
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout -b update-formula-${{ steps.get-version.outputs.version }}
+          git add ctp.rb
+          git commit -m "chore: update formula to version ${{ steps.get-version.outputs.version }}"
+          git push origin update-formula-${{ steps.get-version.outputs.version }}
+
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: actions/github-script@v7
         with:
-          commit-message: "chore: update formula to version ${{ steps.get-version.outputs.version }}"
-          title: "Update formula to version ${{ steps.get-version.outputs.version }}"
-          body: |
-            Automated update of the Homebrew formula to version ${{ steps.get-version.outputs.version }}
-            
-            - Updated version to: ${{ steps.get-version.outputs.version }}
-            - Updated SHA256 to: ${{ steps.get-version.outputs.sha }}
-          branch: update-formula-${{ steps.get-version.outputs.version }}
-          delete-branch: true
-          base: main 
+          script: |
+            const { version, sha } = process.env;
+            await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Update formula to version ${version}`,
+              head: `update-formula-${version}`,
+              base: 'main',
+              body: `Automated update of the Homebrew formula to version ${version}
+
+              - Updated version to: ${version}
+              - Updated SHA256 to: ${sha}`
+            });
+        env:
+          version: ${{ steps.get-version.outputs.version }}
+          sha: ${{ steps.get-version.outputs.sha }} 
