@@ -2,8 +2,11 @@ name: Test Formula
 
 on:
   pull_request:
-    paths:
-      - 'ctp.rb'
+    branches:
+      - main  # Only run on PRs targeting main
+  push:
+    branches:
+      - main  # Run when changes are pushed/merged to main
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
@@ -14,11 +17,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}  # Checkout PR branch
 
-      - name: Validate formula
-        run: |
-          # Check if formula is valid
-          brew audit --strict --online ctp.rb
-          brew style ctp.rb
+      - name: Update Homebrew
+        run: brew update
 
       - name: Set up Homebrew tap
         run: |
@@ -27,10 +27,16 @@ jobs:
           # Add tap from PR branch
           brew tap console-table-printer/homebrew-console-table "${PWD}"
 
+      - name: Validate formula
+        run: |
+          # Check if formula is valid
+          brew audit --strict --online console-table-printer/homebrew-console-table/ctp
+          brew style console-table-printer/homebrew-console-table/ctp
+
       - name: Install formula
         run: |
           # Force reinstall to ensure we're testing the PR version
-          brew install --verbose --force-bottle=false ctp.rb
+          brew install --verbose --force-bottle=false console-table-printer/homebrew-console-table/ctp
 
       - name: Test basic functionality
         run: |

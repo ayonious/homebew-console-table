@@ -10,11 +10,10 @@ class Ctp < Formula
     depends_on "node"
   
     def install
-      system "npm", "install", *Language::Node.std_npm_install_args(libexec)
-      bin.install_symlink Dir["#{libexec}/bin/*"]
+      system "npm", "install", *std_npm_args
     end
   
     test do
-      system "#{bin}/ctp", "--help"
+      assert_match version.to_s, shell_output(bin/"ctp --version")
     end
   end
