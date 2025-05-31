@@ -2,7 +2,7 @@
 
 [![Homebrew](https://img.shields.io/badge/homebrew-tap-orange)](https://brew.sh)
 
-> A Homebrew tap for installing the Console Table CLI tool - a beautiful command-line table printer.
+> This is a Homebrew tap for [table-printer-cli](https://github.com/console-table-printer/table-printer-cli), a Node.js CLI tool for printing beautiful tables in your terminal.
 
 ## 🚀 Quick Install
 
