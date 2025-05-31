@@ -1,0 +1,53 @@
+name: Test Formula
+
+on:
+  pull_request:
+    paths:
+      - 'ctp.rb'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  test:
+    runs-on: macos-latest  # Use macOS runner since we're testing Homebrew
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}  # Checkout PR branch
+
+      - name: Validate formula
+        run: |
+          # Check if formula is valid
+          brew audit --strict --online ctp.rb
+          brew style ctp.rb
+
+      - name: Set up Homebrew tap
+        run: |
+          # Remove existing tap if it exists
+          brew untap console-table-printer/homebrew-console-table || true
+          # Add tap from PR branch
+          brew tap console-table-printer/homebrew-console-table "${PWD}"
+
+      - name: Install formula
+        run: |
+          # Force reinstall to ensure we're testing the PR version
+          brew install --verbose --force-bottle=false ctp.rb
+
+      - name: Test basic functionality
+        run: |
+          # Print installed version
+          brew info ctp
+          
+          # Test help command
+          ctp --help
+          
+          # Test actual table printing with sample JSON
+          echo '[{"name":"John","age":30},{"name":"Jane","age":25}]' | ctp
+          
+          # Test version command
+          ctp --version
+
+      - name: Cleanup
+        if: always()  # Run even if previous steps fail
+        run: |
+          brew uninstall ctp || true
+          brew untap console-table-printer/homebrew-console-table || true 
