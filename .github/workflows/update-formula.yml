@@ -7,19 +7,16 @@ on:
     - cron: '0 0 * * *'  # Run daily at midnight
   workflow_dispatch:      # Allow manual trigger
 
-# Add permissions needed for creating PRs
+# Set proper permissions for GITHUB_TOKEN
 permissions:
-  contents: write
-  pull-requests: write
+  contents: write        # Required for checkout and pushing changes
+  pull-requests: write   # Required for creating PRs
 
 jobs:
   update-formula:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -56,24 +53,16 @@ jobs:
           sed -i "s|url.*|url \"$URL\"|" ctp.rb
           sed -i "s|sha256.*|sha256 \"$SHA\"|" ctp.rb
 
-      - name: Create Branch
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout -b update-formula-${{ steps.get-version.outputs.version }}
-          git add ctp.rb
-          git commit -m "chore: update formula to version ${{ steps.get-version.outputs.version }}"
-          git push origin update-formula-${{ steps.get-version.outputs.version }}
-
       - name: Create Pull Request
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-            --title "Update formula to version ${{ steps.get-version.outputs.version }}" \
-            --body "Automated update of the Homebrew formula to version ${{ steps.get-version.outputs.version }}
-
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: update formula to version ${{ steps.get-version.outputs.version }}"
+          title: "Update formula to version ${{ steps.get-version.outputs.version }}"
+          body: |
+            Automated update of the Homebrew formula to version ${{ steps.get-version.outputs.version }}
+            
             - Updated version to: ${{ steps.get-version.outputs.version }}
-            - Updated SHA256 to: ${{ steps.get-version.outputs.sha }}" \
-            --base main \
-            --head update-formula-${{ steps.get-version.outputs.version }} 
+            - Updated SHA256 to: ${{ steps.get-version.outputs.sha }}
+          branch: update-formula-${{ steps.get-version.outputs.version }}
+          delete-branch: true
+          base: main 
