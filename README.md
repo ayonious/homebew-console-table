@@ -18,8 +18,14 @@ After installation, you can use the `ctp` command in your terminal:
 # Show help
 ctp --help
 
-# Example usage (prints a table)
-echo '[{"name": "John", "age": 30}, {"name": "Jane", "age": 25}]' | ctp
+# Simple Table
+ctp -i '[{ "id":3, "text":"like" }, {"id":4, "text":"tea"}]'
+
+# Use custom column styles
+ctp -i '[{"id":1,"status":"active"},{"id":2,"status":"inactive"}]' --tableOptions '{"columns": [{"name": "status", "color": "green"}]}'
+
+# Change table title
+ctp -i '[{"id":1,"name":"John"}]' --tableOptions '{"title": "Users List"}'
 ```
 
 ## 🗑️ Uninstallation
