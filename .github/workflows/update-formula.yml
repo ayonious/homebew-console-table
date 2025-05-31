@@ -7,6 +7,11 @@ on:
     - cron: '0 0 * * *'  # Run daily at midnight
   workflow_dispatch:      # Allow manual trigger
 
+# Add permissions needed for creating PRs
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-formula:
     runs-on: ubuntu-latest
