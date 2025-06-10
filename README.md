@@ -1,6 +1,7 @@
 # ctp - A Homebrew CLI Table Printer
 
 [![Homebrew](https://img.shields.io/badge/homebrew-tap-orange)](https://brew.sh)
+[![Update Formula](https://github.com/console-table-printer/homebrew-console-table/actions/workflows/update-formula.yml/badge.svg)](https://github.com/console-table-printer/homebrew-console-table/actions/workflows/update-formula.yml)
 
 > This is a Homebrew tap for [table-printer-cli](https://github.com/console-table-printer/table-printer-cli), a Node.js CLI tool for printing beautiful tables in your terminal.
 
