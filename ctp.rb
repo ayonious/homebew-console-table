@@ -3,8 +3,8 @@ require "language/node"
 class Ctp < Formula
   desc "Command-line table printer for JSON data"
   homepage "https://github.com/ayonious/console-table-printer"
-  url "https://registry.npmjs.org/table-printer-cli/-/table-printer-cli-1.2.4.tgz"
-  sha256 "d1bde962f340ac1a5074c398372357c5bda2961916838c7d3699411b678432db"
+  url "https://registry.npmjs.org/table-printer-cli/-/table-printer-cli-1.2.5.tgz"
+  sha256 "0772187916551cda3d2467c55342eea4dcb0c2d554189c4db024340e36f7d081"
   license "MIT"
 
   depends_on "node"
